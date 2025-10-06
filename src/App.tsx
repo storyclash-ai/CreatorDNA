@@ -179,7 +179,7 @@ function App() {
             </div>
             <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
               <iframe
-                src="https://www.youtube.com/embed/d3uAJx_Qz0Y?si=Zd0aNWMh1moyqpcr"
+                src="https://www.youtube.com/embed/iin3uhVIexo"
                 width="100%"
                 height="100%"
                 frameBorder="0"
