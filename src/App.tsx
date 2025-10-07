@@ -131,7 +131,7 @@ useEffect(() => {
           </div>
           
           <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
-            CreatorDNA - Find Your <br />Perfect <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">Creator Match</span> in Seconds, <br />Not Weeks
+            Find Your Perfect <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600"><br />Creator Match</span> in Seconds, <br />Not Weeks
           </h1>
           
           <p className="mt-6 text-lg text-gray-500 max-w-[760px] mx-auto leading-relaxed">
