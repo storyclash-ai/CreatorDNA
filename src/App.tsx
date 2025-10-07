@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Play, Zap, Target, Users, ArrowRight, Menu, X } from 'lucide-react';
 import HowItWorks from './components/HowItWorks';
 
@@ -11,6 +11,26 @@ function App() {
   });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+useEffect(() => {
+  // Script laden
+  const s = document.createElement('script');
+  s.src = 'https://js.hsforms.net/forms/embed/v2.js';
+  s.async = true;
+  s.onload = () => {
+    // nicht doppelt einfügen
+    if (document.querySelector('#hs-form-target .hbspt-form')) return;
+
+    (window as any).hbspt.forms.create({
+      region: 'na1',
+      portalId: '4268479',
+      formId: 'ecc40a1f-7a44-4ac4-ae15-bb2abaf6d635',
+      target: '#hs-form-target',
+      css: '/hs.css', // <- dein Stylesheet
+    });
+  };
+  document.head.appendChild(s);
+}, []);
 
   const scrollToForm = () => {
     const formElement = document.getElementById('form-section');
@@ -25,25 +45,8 @@ function App() {
     const formData = new FormData(formElement);
     const domain = formData.get('domain') as string;
     
-    // Update the main form data with the domain
     setFormData(prev => ({ ...prev, domain }));
-    
-    // Scroll to the main form
     scrollToForm();
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you! We\'ll set up your account and get back to you soon.');
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
   };
 
   return (
@@ -52,7 +55,6 @@ function App() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo and Navigation */}
             <div className="flex items-center gap-3 md:gap-4">
               <div className="flex items-center space-x-3">
                 <img 
@@ -70,7 +72,6 @@ function App() {
               />
             </div>
 
-            {/* Desktop CTA */}
             <div className="hidden md:block">
               <button
                 onClick={scrollToForm}
@@ -80,7 +81,6 @@ function App() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -89,7 +89,6 @@ function App() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div className="md:hidden mt-4 pt-4 border-t border-gray-100">
               <div className="flex flex-col space-y-4">
@@ -116,7 +115,6 @@ function App() {
 
       {/* Hero Section */}
       <section id="hero" className="relative min-h-[80vh] bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 overflow-hidden">
-        {/* Abstract background shapes */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
@@ -124,7 +122,6 @@ function App() {
         </div>
         
         <div className="mx-auto max-w-[980px] px-4 pt-56 pb-40 text-center relative z-10">
-          {/* Brand Icon */}
           <div className="flex justify-center">
             <img 
               src="/Storyclash_ai_logo_icons copy.svg" 
@@ -133,17 +130,14 @@ function App() {
             />
           </div>
           
-          {/* Headline */}
           <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
             CreatorDNA - Find Your <br />Perfect <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">Creator Match</span> in Seconds, <br />Not Weeks
           </h1>
           
-          {/* Subline */}
           <p className="mt-6 text-lg text-gray-500 max-w-[760px] mx-auto leading-relaxed">
             From brand to creators in seconds - our AI researches your brand, competitors, and market to build a creator persona and match you with the perfect influencers.
           </p>
           
-          {/* Input and Button Form */}
           <form onSubmit={handleHeroSubmit} className="mt-8">
             <div className="mx-auto w-full max-w-[560px]">
               <input
@@ -162,7 +156,6 @@ function App() {
             </button>
           </form>
           
-          {/* Helper text */}
           <p className="mt-3 text-xs text-gray-400">
             Free trial • No credit card
           </p>
@@ -205,7 +198,6 @@ function App() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* AI Brand Analysis */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 p-8">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
                 <Zap className="w-8 h-8 text-white" />
@@ -216,7 +208,6 @@ function App() {
               </p>
             </div>
 
-            {/* Market Intelligence */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 p-8">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
                 <Target className="w-8 h-8 text-white" />
@@ -227,7 +218,6 @@ function App() {
               </p>
             </div>
 
-            {/* Perfect Matching */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 p-8">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-white" />
@@ -241,97 +231,27 @@ function App() {
         </div>
       </section>
 
-      {/* How It Works Component */}
       <HowItWorks />
 
-      {/* Lead Form Section */}
-      <section id="form-section" className="py-20 px-6">
-        <div className="max-w-lg mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Request Your Free AI-Sourced Creator Matches
-            </h2>
-            <p className="text-xl text-gray-600">
-              Sign up and receive personalized creator suggestions tailored to your brand - no credit card required.
-            </p>
-          </div>
+  {/* Lead Form Section */}
+<section id="form-section" className="py-20 px-6">
+  <div className="max-w-lg mx-auto">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Request Your Free AI-Sourced Creator Matches
+      </h2>
+      <p className="text-xl text-gray-600">
+        Sign up and receive personalized creator suggestions tailored to your brand - no credit card required.
+      </p>
+    </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg shadow-gray-100 p-10">
-            <div className="space-y-6">
-              <div>
-                <label htmlFor="domain" className="block text-sm font-medium text-gray-700 mb-2">
-                  Domain/Website *
-                </label>
-                <input
-                  type="text"
-                  id="domain"
-                  name="domain"
-                  required
-                  value={formData.domain}
-                  onChange={handleInputChange}
-                  className="rounded-lg border border-gray-200 px-4 py-3 w-full text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 outline-none"
-                  placeholder="yourwebsite.com"
-                />
-              </div>
+    {/* HubSpot Embed mit Wrapper-Klasse für CSS */}
+    <div className="creatorDNA-hs bg-white rounded-xl shadow-lg shadow-gray-100 p-10">
+ <div id="hs-form-target" />
+    </div>
+  </div>
+</section>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Business Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="rounded-lg border border-gray-200 px-4 py-3 w-full text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 outline-none"
-                  placeholder="your.email@company.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="brandName" className="block text-sm font-medium text-gray-700 mb-2">
-                  Brand Name
-                </label>
-                <input
-                  type="text"
-                  id="brandName"
-                  name="brandName"
-                  value={formData.brandName}
-                  onChange={handleInputChange}
-                  className="rounded-lg border border-gray-200 px-4 py-3 w-full text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 outline-none"
-                  placeholder="Your Brand Name"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="preferences" className="block text-sm font-medium text-gray-700 mb-2">
-                  Creator Preferences (Optional)
-                </label>
-                <textarea
-                  id="preferences"
-                  name="preferences"
-                  rows={3}
-                  value={formData.preferences}
-                  onChange={handleInputChange}
-                  className="rounded-lg border border-gray-200 px-4 py-3 w-full text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 outline-none resize-none"
-                  placeholder="Tell us about your ideal creator (e.g., niche, audience size, style...)"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 px-8 rounded-md text-lg font-semibold hover:from-pink-600 hover:to-purple-700 hover:shadow-md transition-all duration-300"
-              >
-                ✨ Start the magic – Get Started →
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      {/* Trust/Stats Section */}
       <section aria-label="Trusted by customers" className="py-10 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x lg:divide-x divide-gray-200">
@@ -371,7 +291,6 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-gray-50 border-t border-gray-100 py-6">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-gray-500">
